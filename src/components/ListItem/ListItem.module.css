@@ -1,0 +1,11 @@
+.item {
+  height: 50px;
+  border-bottom: 1px solid grey;
+  padding: 10px 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.itemSelected {
+  background-color: #c3bdeb;
+}
