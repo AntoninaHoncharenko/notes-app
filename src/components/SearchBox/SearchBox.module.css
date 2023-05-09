@@ -40,6 +40,23 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 250ms linear;
+}
+
+.button:hover,
+.button:active {
+  background-color: #c3bdeb;
+}
+
+.disabledButton {
+  width: 40px;
+  height: 30px;
+  padding: 5px 4px 4px;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .inputWrap {

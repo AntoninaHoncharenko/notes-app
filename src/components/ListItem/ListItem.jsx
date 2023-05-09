@@ -8,8 +8,8 @@ export const ListItem = ({ item, onItemClick, selectedItem }) => {
       }`}
       onClick={() => onItemClick(item.id)}
     >
-      <p>{item.text}</p>
-      <p>{item.time}</p>
+      <p className={css.text}>{item.text}</p>
+      <p className={css.time}>{item.time}</p>
     </li>
   );
 };

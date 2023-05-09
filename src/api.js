@@ -2,9 +2,9 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://quintadb.com.ua/apps/";
 
-const KEY = "ddJmkcgMnlWOz_W5elW5DR";
-const APP_ID = "cGdh5rW6vduleXW5_dOCo0";
-const ENTITY_ID = "ddSSoTgNPhv50WAu0FW5nf";
+const KEY = "bfcSoFlCnmA6NcICoRmmoa";
+const APP_ID = "clyMPbsIzcMikRW7T8W4vc";
+const ENTITY_ID = "ayWPZcVSjjb6JcVefODtWe";
 
 export const getNotes = async () => {
   try {
@@ -24,8 +24,8 @@ export const addNote = async () => {
       {
         values: {
           entity_id: `${ENTITY_ID}`,
-          cVDmkBbdTktyoPl8kKnu9U: "",
-          ddI1PAwujbW4FdNSkSW4rl: new Date(),
+          chWRxcN8jlW6FcMcZcMviZ: "",
+          dcVZm8fSnbyOaLW4lcJmkz: new Date().toLocaleString(),
         },
       }
     );
@@ -37,11 +37,28 @@ export const addNote = async () => {
 
 export const deleteNote = async (id) => {
   try {
-    const response = axios.delete(
+    const response = await axios.delete(
       `${APP_ID}/dtypes/${id}.json?rest_api_key=${KEY}`
     );
-    console.log(response);
     return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const UpdateNote = async (id) => {
+  try {
+    const response = await axios.put(
+      `${APP_ID}/dtypes/${id}.json?rest_api_key=${KEY}`,
+      {
+        values: {
+          chWRxcN8jlW6FcMcZcMviZ: "update",
+          dcVZm8fSnbyOaLW4lcJmkz: new Date().toLocaleString(),
+        },
+      }
+    );
+    console.log(response.data.record);
+    return response.data.record;
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,18 @@
 .wrap {
   background-color: #f8f7fc;
   width: 66.6%;
-  padding: 10px;
+  padding: 10px 30px;
+}
+
+.time {
+  font-size: 16px;
+  color: #737373;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.text {
+  font-size: 18px;
+  word-wrap: break-word;
+  line-height: 1.5;
 }

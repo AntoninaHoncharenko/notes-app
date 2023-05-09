@@ -3,18 +3,39 @@ import css from "./App.module.css";
 import { SeachBox } from "../SearchBox/SearchBox";
 import { SideBar } from "../Sidebar/Sidebar";
 import { WorkSpace } from "../Workspace/Workspace";
-import { getNotes, addNote, deleteNote } from "../../api";
+import { getNotes, addNote, deleteNote, UpdateNote } from "../../api";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  console.log(selectedItem);
+  useEffect(() => {
+    async function getAllNotes() {
+      try {
+        const result = await getNotes();
+        const data = result.map((item) => {
+          return {
+            id: item.id,
+            text: item.values.chWRxcN8jlW6FcMcZcMviZ
+              ? item.values.chWRxcN8jlW6FcMcZcMviZ
+              : "",
+            time: item.values.dcVZm8fSnbyOaLW4lcJmkz,
+          };
+        });
+        setItems(data);
+        setFilteredItems(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllNotes();
+  }, []);
 
   const onItemClick = (id) => {
-    const clickedItem = items.find((item) => item.id === id);
+    const clickedItem = filteredItems.find((item) => item.id === id);
     setSelectedItem(clickedItem === selectedItem ? null : clickedItem);
-    return items.map((item) => ({ ...item }));
+    return filteredItems.map((item) => ({ ...item }));
   };
 
   const addItem = () => {
@@ -24,9 +45,9 @@ function App() {
         const data = {
           id: result.id,
           text: "",
-          time: result.values.ddI1PAwujbW4FdNSkSW4rl,
+          time: result.values.dcVZm8fSnbyOaLW4lcJmkz,
         };
-        setItems([...items, data]);
+        setFilteredItems([...filteredItems, data]);
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +59,9 @@ function App() {
     async function deleteItem() {
       try {
         await deleteNote(id);
-        setItems(items.map((item) => item).filter((item) => item.id !== id));
+        setFilteredItems(
+          filteredItems.map((item) => item).filter((item) => item.id !== id)
+        );
         setSelectedItem(null);
       } catch (error) {
         console.log(error);
@@ -47,37 +70,50 @@ function App() {
     deleteItem();
   };
 
-  useEffect(() => {
-    async function getAllNotes() {
+  const updateItem = (id) => {
+    async function updateItem() {
       try {
-        const result = await getNotes();
-        const data = result.map((item) => {
-          return {
-            id: item.id,
-            text: item.values.cVDmkBbdTktyoPl8kKnu9U,
-            time: item.values.ddI1PAwujbW4FdNSkSW4rl,
-          };
+        const data = await UpdateNote(id);
+        const updatedData = filteredItems.map((item) => {
+          if (item.id === id) {
+            return {
+              id: item.id,
+              text: data.values.chWRxcN8jlW6FcMcZcMviZ,
+              time: data.values.dcVZm8fSnbyOaLW4lcJmkz,
+            };
+          } else {
+            return item;
+          }
         });
-        setItems(data);
+        setFilteredItems(updatedData);
       } catch (error) {
         console.log(error);
       }
     }
-    getAllNotes();
-  }, []);
+    updateItem();
+  };
+
+  const filterItems = (value) => {
+    const filteredItems = items.filter((item) =>
+      item.text?.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredItems(filteredItems);
+  };
 
   return (
     <>
       <SeachBox
         addItem={addItem}
-        selectedItem={selectedItem}
         deleteItem={deleteItem}
+        updateItem={updateItem}
+        filterItems={filterItems}
+        selectedItem={selectedItem}
       />
       <main className={css.container}>
         <div className={css.wrap}>
           <SideBar
             onItemClick={onItemClick}
-            items={items}
+            items={filteredItems}
             selectedItem={selectedItem}
           />
           <WorkSpace selectedItem={selectedItem} />

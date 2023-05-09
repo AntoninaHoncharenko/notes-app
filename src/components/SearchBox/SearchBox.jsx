@@ -6,7 +6,13 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { RiEditBoxLine } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 
-export const SeachBox = ({ selectedItem, addItem, deleteItem }) => {
+export const SeachBox = ({
+  selectedItem,
+  addItem,
+  deleteItem,
+  updateItem,
+  filterItems,
+}) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openModal = () => {
@@ -25,7 +31,7 @@ export const SeachBox = ({ selectedItem, addItem, deleteItem }) => {
             <IoMdAdd size="20" />
           </button>
           <button
-            className={css.button}
+            className={selectedItem ? css.button : css.disabledButton}
             onClick={() => {
               openModal(true);
             }}
@@ -33,7 +39,11 @@ export const SeachBox = ({ selectedItem, addItem, deleteItem }) => {
           >
             <AiOutlineDelete size="20" />
           </button>
-          <button className={css.button} disabled={selectedItem ? false : true}>
+          <button
+            className={selectedItem ? css.button : css.disabledButton}
+            onClick={() => updateItem(selectedItem.id)}
+            disabled={selectedItem ? false : true}
+          >
             <RiEditBoxLine size="20" />
           </button>
         </div>
@@ -46,6 +56,7 @@ export const SeachBox = ({ selectedItem, addItem, deleteItem }) => {
             id="search"
             placeholder="Search"
             className={css.input}
+            onChange={(e) => filterItems(e.target.value)}
           />
         </div>
       </div>
