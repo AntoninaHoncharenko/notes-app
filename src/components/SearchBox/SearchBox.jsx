@@ -1,21 +1,39 @@
+import { useState } from "react";
+import { Modal } from "./Modal";
+import css from "./SearchBox.module.css";
 import { IoMdAdd } from "react-icons/io";
 import { AiOutlineDelete } from "react-icons/ai";
 import { RiEditBoxLine } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
-import css from "./SearchBox.module.css";
 
-export const SeachBox = ({ isActive }) => {
+export const SeachBox = ({ selectedItem, addItem, deleteItem }) => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const openModal = () => {
+    setIsOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
   return (
     <header className={css.header}>
       <div className={css.wrap}>
         <div className={css.btnWrap}>
-          <button className={css.button}>
+          <button className={css.button} onClick={addItem}>
             <IoMdAdd size="20" />
           </button>
-          <button className={css.button} disabled={isActive ? false : true}>
+          <button
+            className={css.button}
+            onClick={() => {
+              openModal(true);
+            }}
+            disabled={selectedItem ? false : true}
+          >
             <AiOutlineDelete size="20" />
           </button>
-          <button className={css.button} disabled={isActive ? false : true}>
+          <button className={css.button} disabled={selectedItem ? false : true}>
             <RiEditBoxLine size="20" />
           </button>
         </div>
@@ -31,6 +49,13 @@ export const SeachBox = ({ isActive }) => {
           />
         </div>
       </div>
+      {isOpenModal && (
+        <Modal
+          closeModal={closeModal}
+          deleteItem={deleteItem}
+          selectedItem={selectedItem}
+        />
+      )}
     </header>
   );
 };

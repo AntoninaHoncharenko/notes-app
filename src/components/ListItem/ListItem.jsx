@@ -1,10 +1,15 @@
 import css from "./ListItem.module.css";
 
-export const ListItem = ({ onItemClick, isActive }) => {
+export const ListItem = ({ item, onItemClick, selectedItem }) => {
   return (
     <li
-      className={`${css.item} ${isActive ? css.itemSelected : ""}`}
-      onClick={onItemClick}
-    ></li>
+      className={`${css.item} ${
+        selectedItem?.id === item.id ? css.itemSelected : ""
+      }`}
+      onClick={() => onItemClick(item.id)}
+    >
+      <p>{item.text}</p>
+      <p>{item.time}</p>
+    </li>
   );
 };

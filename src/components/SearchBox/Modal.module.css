@@ -1,0 +1,55 @@
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(95, 93, 93, 0.288);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 150px;
+  background-color: aliceblue;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.text {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.btnWrap {
+  width: 220px;
+  margin: 0 auto;
+}
+
+.btn {
+  width: 100px;
+  height: 40px;
+  background-color: #f8f7fc;
+  border: 2px solid #6a5acd;
+  border-radius: 8px;
+  outline: none;
+  transition: background-color 250ms linear;
+  cursor: pointer;
+
+  font-size: 16px;
+}
+
+.btn:first-child {
+  margin-right: 20px;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #6a5acd;
+}
