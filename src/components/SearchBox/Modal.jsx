@@ -1,6 +1,9 @@
+import { useContext } from "react";
+import { AppContext } from "../App/App";
 import css from "./Modal.module.css";
 
-export const Modal = ({ closeModal, deleteItem, selectedItem }) => {
+export const Modal = ({ closeModal }) => {
+  const { selectedItem, deleteItem } = useContext(AppContext);
   return (
     <div className={css.backdrop}>
       <div className={css.modal}>

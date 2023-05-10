@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AppContext } from "../App/App";
 import { Modal } from "./Modal";
 import css from "./SearchBox.module.css";
 import { IoMdAdd } from "react-icons/io";
@@ -6,13 +7,10 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { RiEditBoxLine } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 
-export const SeachBox = ({
-  selectedItem,
-  addItem,
-  deleteItem,
-  updateItem,
-  filterItems,
-}) => {
+export const SeachBox = () => {
+  const { addItem, updateItem, filterItems, selectedItem } =
+    useContext(AppContext);
+
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openModal = () => {
@@ -60,13 +58,7 @@ export const SeachBox = ({
           />
         </div>
       </div>
-      {isOpenModal && (
-        <Modal
-          closeModal={closeModal}
-          deleteItem={deleteItem}
-          selectedItem={selectedItem}
-        />
-      )}
+      {isOpenModal && <Modal closeModal={closeModal} />}
     </header>
   );
 };

@@ -1,17 +1,16 @@
+import { useContext } from "react";
+import { AppContext } from "../App/App";
 import { ListItem } from "../ListItem/ListItem";
 import css from "./Sidebar.module.css";
 
-export const SideBar = ({ onItemClick, items, selectedItem }) => {
+export const SideBar = () => {
+  const { onItemClick, filteredItems } = useContext(AppContext);
+
   return (
     <div className={css.wrap}>
       <ul className={css.list}>
-        {items.map((item) => (
-          <ListItem
-            key={item.id}
-            onItemClick={onItemClick}
-            item={item}
-            selectedItem={selectedItem}
-          />
+        {filteredItems?.map((item) => (
+          <ListItem key={item.id} onItemClick={onItemClick} item={item} />
         ))}
       </ul>
     </div>

@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import css from "./App.module.css";
 import { SeachBox } from "../SearchBox/SearchBox";
 import { SideBar } from "../Sidebar/Sidebar";
 import { WorkSpace } from "../Workspace/Workspace";
 import { getNotes, addNote, deleteNote, UpdateNote } from "../../api";
+
+export const AppContext = createContext();
 
 function App() {
   const [items, setItems] = useState([]);
@@ -101,25 +103,28 @@ function App() {
   };
 
   return (
-    <>
-      <SeachBox
-        addItem={addItem}
-        deleteItem={deleteItem}
-        updateItem={updateItem}
-        filterItems={filterItems}
-        selectedItem={selectedItem}
-      />
-      <main className={css.container}>
-        <div className={css.wrap}>
-          <SideBar
-            onItemClick={onItemClick}
-            items={filteredItems}
-            selectedItem={selectedItem}
-          />
-          <WorkSpace selectedItem={selectedItem} />
-        </div>
-      </main>
-    </>
+    <AppContext.Provider
+      value={{
+        onItemClick,
+        addItem,
+        deleteItem,
+        updateItem,
+        filterItems,
+        selectedItem,
+        filteredItems,
+        items,
+      }}
+    >
+      <>
+        <SeachBox />
+        <main className={css.container}>
+          <div className={css.wrap}>
+            <SideBar />
+            <WorkSpace />
+          </div>
+        </main>
+      </>
+    </AppContext.Provider>
   );
 }
 

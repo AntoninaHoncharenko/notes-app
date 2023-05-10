@@ -25,7 +25,7 @@ export const addNote = async () => {
         values: {
           entity_id: `${ENTITY_ID}`,
           chWRxcN8jlW6FcMcZcMviZ: "",
-          dcVZm8fSnbyOaLW4lcJmkz: new Date().toLocaleString(),
+          dcVZm8fSnbyOaLW4lcJmkz: new Date().toString(),
         },
       }
     );
@@ -53,7 +53,7 @@ export const UpdateNote = async (id) => {
       {
         values: {
           chWRxcN8jlW6FcMcZcMviZ: "update",
-          dcVZm8fSnbyOaLW4lcJmkz: new Date().toLocaleString(),
+          dcVZm8fSnbyOaLW4lcJmkz: new Date().toString(),
         },
       }
     );

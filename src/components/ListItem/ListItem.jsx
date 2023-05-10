@@ -1,6 +1,14 @@
+import { useContext } from "react";
+import { AppContext } from "../App/App";
+import moment from "moment";
 import css from "./ListItem.module.css";
 
-export const ListItem = ({ item, onItemClick, selectedItem }) => {
+export const ListItem = ({ item }) => {
+  const { onItemClick, selectedItem } = useContext(AppContext);
+  const currentTime = moment();
+  const itemTime = moment(item.time);
+  const isToday = moment(itemTime).isSame(currentTime, "day");
+
   return (
     <li
       className={`${css.item} ${
@@ -9,7 +17,9 @@ export const ListItem = ({ item, onItemClick, selectedItem }) => {
       onClick={() => onItemClick(item.id)}
     >
       <p className={css.text}>{item.text}</p>
-      <p className={css.time}>{item.time}</p>
+      <p className={css.time}>
+        {isToday ? moment(itemTime).format("LT") : moment(itemTime).format("l")}
+      </p>
     </li>
   );
 };
