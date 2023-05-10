@@ -8,7 +8,7 @@ import { RiEditBoxLine } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 
 export const SeachBox = () => {
-  const { addItem, updateItem, filterItems, selectedItem } =
+  const { addItem, filterItems, selectedItem, isEditChange } =
     useContext(AppContext);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -39,7 +39,7 @@ export const SeachBox = () => {
           </button>
           <button
             className={selectedItem ? css.button : css.disabledButton}
-            onClick={() => updateItem(selectedItem.id)}
+            onClick={isEditChange}
             disabled={selectedItem ? false : true}
           >
             <RiEditBoxLine size="20" />

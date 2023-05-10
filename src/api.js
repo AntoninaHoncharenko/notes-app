@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 axios.defaults.baseURL = "https://quintadb.com.ua/apps/";
 
@@ -14,6 +15,7 @@ export const getNotes = async () => {
     return responce.data.records;
   } catch (error) {
     console.log(error);
+    toast.error("Something went wrong... Please, try again");
   }
 };
 
@@ -32,6 +34,7 @@ export const addNote = async () => {
     return response.data.record;
   } catch (error) {
     console.log(error);
+    toast.error("Something went wrong... Please, try again");
   }
 };
 
@@ -43,23 +46,24 @@ export const deleteNote = async (id) => {
     return response;
   } catch (error) {
     console.log(error);
+    toast.error("Something went wrong... Please, try again");
   }
 };
 
-export const UpdateNote = async (id) => {
+export const updateNote = async (id, value) => {
   try {
     const response = await axios.put(
       `${APP_ID}/dtypes/${id}.json?rest_api_key=${KEY}`,
       {
         values: {
-          chWRxcN8jlW6FcMcZcMviZ: "update",
+          chWRxcN8jlW6FcMcZcMviZ: value,
           dcVZm8fSnbyOaLW4lcJmkz: new Date().toString(),
         },
       }
     );
-    console.log(response.data.record);
     return response.data.record;
   } catch (error) {
     console.log(error);
+    toast.error("Something went wrong... Please, try again");
   }
 };

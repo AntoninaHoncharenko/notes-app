@@ -1,0 +1,19 @@
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(95, 93, 93, 0.288);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.wrap {
+  width: 80px;
+  height: 80px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
